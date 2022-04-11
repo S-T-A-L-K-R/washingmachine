@@ -1,5 +1,6 @@
 package edu.iis.mto.testreactor.washingmachine;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,11 @@ class WashingMachineTest {
     private WaterPump waterPump;
     private WashingMachine washingMashine;
 
+    @Mock
+    private LaundryBatch laundryBatch;
+    @Mock
+    private ProgramConfiguration programConfiguration;
+
     @BeforeEach
     void setUp() throws Exception {
         washingMashine = new WashingMachine(dirtDetector, engine, waterPump);
@@ -29,4 +35,10 @@ class WashingMachineTest {
         fail("Not yet implemented");
     }
 
+    @Test
+    void test01()
+    {
+        LaundryStatus laundryStatus = washingMashine.start(laundryBatch, programConfiguration);
+        assertEquals(ErrorCode.UNKNOWN_ERROR, laundryStatus.getErrorCode());
+    }
 }
